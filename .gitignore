@@ -1,6 +1,7 @@
 # dependencies (bun install)
 node_modules
 
+
 # output
 out
 dist
@@ -23,6 +24,7 @@ report.[0-9]_.[0-9]_.[0-9]_.[0-9]_.json
 .env.local
 
 # caches
+*_cache
 .eslintcache
 .cache
 *.tsbuildinfo
