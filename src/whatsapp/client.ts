@@ -1,20 +1,25 @@
 import { Client, LocalAuth } from "whatsapp-web.js";
 // import * as qrcode from "qrcode-terminal";
 
+const adminContactIDs = process.env.ADMIN_NUMBERS?.split(',') || [];
 export const client = new Client({
     authStrategy: new LocalAuth({
         dataPath: '../../wwebjs_cache'
     }),
 });
 
+export function sendMessage(content: string) {
+    adminContactIDs.forEach((contactId) => {
+        client.sendMessage(contactId, content);
+    })
+}
+
 client.on('ready', async () => {
     console.log('Client is ready!');
 
-    const adminContactIDs = process.env.ADMIN_NUMBERS?.split(',') || [];
-
-    adminContactIDs.forEach((contactId) => {
-        client.sendMessage(contactId, 'WhatsApp bot is online!');
-    })
+    // adminContactIDs.forEach((contactId) => {
+    //     client.sendMessage(contactId, 'WhatsApp bot is online!');
+    // })
 })
 
 // client.on('qr', (qr) => {
