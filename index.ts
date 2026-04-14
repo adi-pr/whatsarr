@@ -21,8 +21,8 @@ app.post("/webhook/send-message", async (req: express.Request, res: express.Resp
 
         console.log("Received webhook payload:", payload.eventType);
 
-        const result = await handleEvent(payload.eventType, payload);
-        
+        const result = await handleEvent(payload);
+
         console.log("Event handling result:", result);
 
         res.status(200).json({ success: true });
