@@ -22,10 +22,8 @@ app.post("/webhook/send-message", async (req: express.Request, res: express.Resp
         console.log("Received webhook payload:", payload.eventType);
 
         const result = await handleEvent(payload.eventType, payload);
+        
         console.log("Event handling result:", result);
-
-        // TODO: Customize the message content based on the payload
-        // TODO: Send different messages for different event types (e.g., Grab, Download, Rename, etc.)
 
         res.status(200).json({ success: true });
     } catch (err) {

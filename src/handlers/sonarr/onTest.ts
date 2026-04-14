@@ -3,8 +3,6 @@ import type { SonarrTestPayload } from "../../../types/sonar";
 import env from "../../../config/env";
 
 export default async function onTest(payload: SonarrTestPayload) {
-    console.log("Received Sonarr Test event", payload);
-    
     const series = payload.series;
     const episodes = payload.episodes;
     
