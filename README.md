@@ -1,4 +1,4 @@
 # Whatsarr
 
-Whatsarr integrates Radarr, Sonarr, and Prowlarr with WhatsApp using bun and whatsapp-web.js
+Whatsarr integrates Radarr, Sonarr, and Prowlarr with WhatsApp using node and whatsapp-web.js
 
