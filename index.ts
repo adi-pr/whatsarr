@@ -1,41 +1,41 @@
 import { client, sendMessage } from "./src/whatsapp/client";
 import type { WebhookPayload } from "./types";
+import express from "express";
 
 await client.initialize();
 
-// Bun.serve({
-//   port: 3000,
-//   async fetch(req) {
-//     const url = new URL(req.url);
+const app = express();
+const port = 3000;
 
-//     if (req.method === "GET" && url.pathname === "/") {
-//       return new Response("Server is running");
-//     }
+app.use(express.json());
 
-//     if (req.method === "POST" && url.pathname === "/webhook/send-message") {
-//       try {
-//         const payload = (await req.json()) as WebhookPayload;
+app.get("/", (req: express.Request, res: express.Response) => {
+    res.send("Server is running");
+});
 
-//         console.log("Received webhook payload:", payload.eventType);
+app.post("/webhook/send-message", async (req: express.Request, res: express.Response) => {
+    try {
+        const payload = req.body as WebhookPayload;
 
-//         // const message = `New item: ${
-//         //   payload.series?.title || payload.movie?.title
-//         // }`;
+        console.log("Received webhook payload:", payload.eventType);
 
-//         // await sendMessage(message);
+        // const message = `New item: ${
+        //   payload.series?.title || payload.movie?.title
+        // }`;
 
-//         return new Response(JSON.stringify({ success: true }), {
-//           status: 200,
-//           headers: { "Content-Type": "application/json" },
-//         });
-//       } catch (err) {
-//         console.error(err);
-//         return new Response("Bad Request", { status: 400 });
-//       }
-//     }
+        // await sendMessage(message);
 
-//     return new Response("Not Found", { status: 404 });
-//   },
-// });
+        res.status(200).json({ success: true });
+    } catch (err) {
+        console.error(err);
+        res.status(400).send("Bad Request");
+    }
+});
 
-console.log("Server running on http://localhost:3000");
+app.use((req: express.Request, res: express.Response) => {
+    res.status(404).send("Not Found");
+});
+
+app.listen(port, () => {
+    console.log(`Server running on http://localhost:${port}`);
+});

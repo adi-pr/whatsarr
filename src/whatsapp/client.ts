@@ -5,6 +5,7 @@ import path from 'path';
 const { Client, LocalAuth } = pkg;
 
 const adminContactIDs = process.env.ADMIN_NUMBERS?.split(',') || [];
+
 export const client = new Client({
     authStrategy: new LocalAuth({
         dataPath: path.resolve('./wwebjs_cache'),
@@ -31,14 +32,7 @@ client.on('ready', async () => {
 
     client.sendMessage("120363425693415045@g.us", 'WhatsApp bot is online!');
 
-    // adminContactIDs.forEach((contactId) => {
-    //     client.sendMessage(contactId, 'WhatsApp bot is online!');
-    // })
 })
-
-// client.on('qr', (qr) => {
-//     qrcode.generate(qr, {small: true});
-// });
 
 client.on('disconnected', (reason) => {
     console.log('Client was logged out', reason);
