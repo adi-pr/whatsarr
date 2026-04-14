@@ -97,3 +97,4 @@ Default Sonarr URL: `http://localhost:8989`
 
 - Add handlers for Sonarr `Grab`, `Download`, `Rename`, `Health`, and `ManualInteractionRequired`.
 - Add Radarr-specific event handlers.
+- Add Redis to handle incoming logs from multiple services
