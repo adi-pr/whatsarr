@@ -3,10 +3,11 @@ import { client } from "./src/whatsapp/client";
 import type { WebhookPayload } from "./types";
 import express from "express";
 
+import env from "./config/env";
+
 await client.initialize();
 
 const app = express();
-const port = process.env.PORT || 3000;
 
 app.use(express.json());
 
@@ -37,6 +38,6 @@ app.use((req: express.Request, res: express.Response) => {
     res.status(404).send("Not Found");
 });
 
-app.listen(port, () => {
-    console.log(`Server running on http://localhost:${port}`);
+app.listen(env.PORT || 3000, () => {
+    console.log(`Server running on http://localhost:${env.PORT || 3000}`);
 });
