@@ -4,8 +4,6 @@ import path from 'path';
 
 const { Client, LocalAuth } = pkg;
 
-const adminContactIDs = process.env.ADMIN_NUMBERS?.split(',') || [];
-
 export const client = new Client({
     authStrategy: new LocalAuth({
         dataPath: path.resolve('./wwebjs_cache'),
@@ -21,17 +19,9 @@ client.on('authenticated', () => {
     console.log('Client authenticated');
 });
 
-export function sendMessage(content: string) {
-    adminContactIDs.forEach((contactId) => {
-        client.sendMessage(contactId, content);
-    })
-}
-
 client.on('ready', async () => {
     console.log('Client is ready!');
-
     client.sendMessage("120363425693415045@g.us", 'WhatsApp bot is online!');
-
 })
 
 client.on('disconnected', (reason) => {

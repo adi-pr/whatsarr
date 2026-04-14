@@ -1,11 +1,12 @@
-import { client, sendMessage } from "./src/whatsapp/client";
+import { handleEvent } from "./src/handlers/handler";
+import { client } from "./src/whatsapp/client";
 import type { WebhookPayload } from "./types";
 import express from "express";
 
 await client.initialize();
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 app.use(express.json());
 
@@ -19,11 +20,11 @@ app.post("/webhook/send-message", async (req: express.Request, res: express.Resp
 
         console.log("Received webhook payload:", payload.eventType);
 
-        // const message = `New item: ${
-        //   payload.series?.title || payload.movie?.title
-        // }`;
+        const result = await handleEvent(payload.eventType, payload);
+        console.log("Event handling result:", result);
 
-        // await sendMessage(message);
+        // TODO: Customize the message content based on the payload
+        // TODO: Send different messages for different event types (e.g., Grab, Download, Rename, etc.)
 
         res.status(200).json({ success: true });
     } catch (err) {
