@@ -1,6 +1,7 @@
+import onGrab from "./onGrab";
 import onTest from "./onTest";
 
 export const handlers = {
     "Test": onTest,
-    // Add other event handlers here
+    "Grab": onGrab,
 };
