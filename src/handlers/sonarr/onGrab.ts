@@ -1,6 +1,6 @@
 import { client } from "../../whatsapp/client";
 import pkg from "whatsapp-web.js";
-import type { SonarrGrabPayload } from "../../../types/sonar";
+import type { SonarrGrabPayload } from "../../../types/sonarr";
 import buildImageUrl from "../../utils/buildImageUrl";
 import env from "../../../config/env";
 

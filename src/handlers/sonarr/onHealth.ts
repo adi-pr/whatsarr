@@ -1,5 +1,5 @@
 import { client } from "../../whatsapp/client";
-import type { SonarrHealthPayload } from "../../../types/sonar";
+import type { SonarrHealthPayload } from "../../../types/sonarr";
 import env from "../../../config/env";
 
 export default async function onHealth(payload: SonarrHealthPayload) {

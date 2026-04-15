@@ -1,6 +1,6 @@
 import { client } from "../../whatsapp/client";
 import pkg from "whatsapp-web.js";
-import type { SonarrSeriesDeletePayload } from "../../../types/sonar";
+import type { SonarrSeriesDeletePayload } from "../../../types/sonarr";
 import env from "../../../config/env";
 import buildImageUrl from "../../utils/buildImageUrl";
 

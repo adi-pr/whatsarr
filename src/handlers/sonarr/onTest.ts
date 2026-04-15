@@ -1,5 +1,5 @@
 import { client } from "../../whatsapp/client";
-import type { SonarrTestPayload } from "../../../types/sonar";
+import type { SonarrTestPayload } from "../../../types/sonarr";
 import env from "../../../config/env";
 
 export default async function onTest(payload: SonarrTestPayload) {

@@ -1,5 +1,5 @@
 import { client } from "../../whatsapp/client";
-import type { SonarrManualInteractionPayload } from "../../../types/sonar";
+import type { SonarrManualInteractionPayload } from "../../../types/sonarr";
 import env from "../../../config/env";
 
 export default async function onManualInteractionReq(payload: SonarrManualInteractionPayload) {
