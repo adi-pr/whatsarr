@@ -3,6 +3,7 @@ import onSeriesAdd from "./onSeriesAdd";
 import onSeriesDelete from "./onSeriesDelete";
 import onTest from "./onTest";
 import onHealth from "./onHealth";
+import onManualInteractionReq from "./onManualInteractionReq";
 
 export const handlers = {
     "Test": onTest,
@@ -11,4 +12,5 @@ export const handlers = {
     "SeriesDelete": onSeriesDelete,
     "Health": onHealth,
     "HealthRestored": onHealth,
+    "ManualInteractionRequired": onManualInteractionReq
 };
