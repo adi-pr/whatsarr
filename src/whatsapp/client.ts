@@ -24,7 +24,7 @@ client.on('ready', async () => {
     console.log('Client is ready!');
 
     env.ALLIDS.forEach(id => {
-        client.sendMessage(id, 'WhatsApp bot is online!');
+        client.sendMessage(id, 'Whatsarr is online!');
     });
 })
 

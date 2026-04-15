@@ -40,10 +40,8 @@ npm install
 
 ## Run Locally
 
-This project currently has no npm scripts, so run it directly with `tsx`:
-
 ```bash
-npx tsx index.ts
+npm run dev
 ```
 
 On startup you should see a QR code in the terminal. Scan it to authenticate the WhatsApp session.
