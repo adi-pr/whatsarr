@@ -54,6 +54,8 @@ npm install
 
 ## Environment Variables
 
+> To find your `GROUP_ID` and `ADMIN_NUMBERS` values, use the [setup helper script](setup/README.md).
+
 Copy `example.env` and configure values:
 
 ```env
