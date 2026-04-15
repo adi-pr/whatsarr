@@ -1,10 +1,12 @@
-import { handleEvent } from "./src/handlers/handler";
 import { client } from "./src/whatsapp/client";
+import messageQueue from "./src/utils/queue";
+import startWorker from "./src/utils/worker";
 import type { WebhookPayload } from "./types";
 import express from "express";
 
 import env from "./config/env";
 
+await startWorker();
 await client.initialize();
 
 const app = express();
@@ -21,13 +23,7 @@ app.post("/webhook/send-message", async (req: express.Request, res: express.Resp
 
         console.log("Received webhook payload:", payload);
 
-        const result = await handleEvent(payload);
-
-        console.log("Event handling result:", result);
-
-        if (!result.success) {
-            client.sendMessage(env.ALLIDS[0], `Error handling event: ${payload.eventType}`);
-        }
+        await messageQueue.add("message-queue", payload);
 
         res.status(200).json({ success: true });
     } catch (err) {
