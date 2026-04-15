@@ -1,5 +1,3 @@
-# Simple docker-compose file for Sonarr
-
 version: "3.9"
 
 services:
@@ -17,3 +15,32 @@ services:
     ports:
       - 8989:8989
     restart: unless-stopped
+    depends_on:
+      - prowlarr
+      - transmission
+
+  prowlarr:
+    image: lscr.io/linuxserver/prowlarr:latest
+    container_name: prowlarr_test
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Guyana
+    volumes:
+      - ./volumes/prowlarr/config:/config
+    ports:
+      - 9696:9696
+
+  transmission:
+    image: lscr.io/linuxserver/transmission:latest
+    container_name: transmission_test
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Guyana
+    volumes:
+      - ./volumes/transmission/config:/config
+      - ./volumes/sonarr/downloads:/downloads
+      - ./volumes/transmission/watch:/watch
+    ports:
+      - 9091:9091
