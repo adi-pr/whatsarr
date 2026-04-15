@@ -6,7 +6,7 @@ import express from "express";
 
 import env from "./config/env";
 
-await startWorker();
+startWorker();
 await client.initialize();
 
 const app = express();
@@ -19,13 +19,17 @@ app.get("/", (req: express.Request, res: express.Response) => {
 
 app.post("/webhook/send-message", async (req: express.Request, res: express.Response) => {
     try {
-        const payload = req.body as WebhookPayload;
+      const payload = req.body as WebhookPayload;
+      
+      if (!payload) {
+        return res.status(400).send("Bad Request");
+      }
 
-        console.log("Received webhook payload:", payload);
+      console.log("Received webhook payload:", payload);
 
-        await messageQueue.add("message-queue", payload);
+      await messageQueue.add("message-queue", payload);
 
-        res.status(200).json({ success: true });
+      res.status(200).json({ success: true });
     } catch (err) {
         console.error(err);
         res.status(400).send("Bad Request");

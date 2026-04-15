@@ -2,7 +2,7 @@ import { Worker } from "bullmq";
 import { WebhookPayload } from "../../types";
 import { handleEvent } from "../handlers/handler";
 
-export default async function startWorker() {
+export default function startWorker() {
   const worker = new Worker<WebhookPayload>("message-queue", async (job) => {
     const { data } = job;
 
