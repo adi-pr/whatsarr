@@ -19,7 +19,7 @@ app.post("/webhook/send-message", async (req: express.Request, res: express.Resp
     try {
         const payload = req.body as WebhookPayload;
 
-        console.log("Received webhook payload:", payload.eventType);
+        console.log("Received webhook payload:", payload);
 
         const result = await handleEvent(payload);
 
