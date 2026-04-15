@@ -1,6 +1,7 @@
 import pkg from "whatsapp-web.js";
 import qrcode from "qrcode-terminal";
 import path from 'path';
+import env from "../../config/env";
 
 const { Client, LocalAuth } = pkg;
 
@@ -21,7 +22,10 @@ client.on('authenticated', () => {
 
 client.on('ready', async () => {
     console.log('Client is ready!');
-    client.sendMessage("120363425693415045@g.us", 'WhatsApp bot is online!');
+
+    env.ALLIDS.forEach(id => {
+        client.sendMessage(id, 'WhatsApp bot is online!');
+    });
 })
 
 client.on('disconnected', (reason) => {
