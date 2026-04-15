@@ -25,6 +25,10 @@ app.post("/webhook/send-message", async (req: express.Request, res: express.Resp
 
         console.log("Event handling result:", result);
 
+        if (!result.success) {
+            client.sendMessage(env.ALLIDS[0], `Error handling event: ${payload.eventType}`);
+        }
+
         res.status(200).json({ success: true });
     } catch (err) {
         console.error(err);
