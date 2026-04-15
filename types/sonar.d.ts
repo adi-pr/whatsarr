@@ -1,13 +1,37 @@
 export interface SonarrSeries {
   id: number;
   title: string;
+  titleSlug?: string;
   path: string;
   tvdbId: number;
-  tvMazeId: number;
-  tmdbId: number;
+  tvMazeId?: number;
+  tmdbId?: number;
+  imdbId?: string;
   type: string;
   year: number;
+  genres?: string[];
+  images?: SonarrSeriesImage[];
+  originalLanguage?: SonarrOriginalLanguage;
   tags: string[];
+}
+
+export interface SonarrSeriesImage {
+  coverType: string;
+  url: string;
+  remoteUrl?: string;
+}
+
+export interface SonarrOriginalLanguage {
+  id: number;
+  name: string;
+}
+
+export interface SonarrSeriesAddSeries extends SonarrSeries {
+  titleSlug: string;
+  imdbId?: string;
+  genres: string[];
+  images: SonarrSeriesImage[];
+  originalLanguage?: SonarrOriginalLanguage;
 }
 
 export interface SonarrEpisode {
@@ -32,6 +56,36 @@ export interface SonarrEpisodeFile {
   path: string;
   quality: string;
   size?: number;
+  sourcePath?: string;
+  recycleBinPath?: string;
+}
+
+export interface SonarrCustomFormat {
+  id?: number;
+  name?: string;
+}
+
+export interface SonarrCustomFormatInfo {
+  customFormats: SonarrCustomFormat[];
+  customFormatScore: number;
+}
+
+export interface SonarrDownloadStatusMessage {
+  title: string;
+  messages: string[];
+}
+
+export interface SonarrDownloadInfo {
+  [key: string]: unknown;
+}
+
+export interface SonarrGrabbedRelease extends SonarrRelease {
+  releaseType?: string;
+  indexerFlags?: number;
+}
+
+export interface SonarrRenamedEpisodeFile {
+  [key: string]: unknown;
 }
 
 export interface SonarrGrabPayload {
@@ -43,6 +97,7 @@ export interface SonarrGrabPayload {
   downloadClient?: string;
   downloadClientType?: string;
   downloadId?: string;
+  customFormatInfo?: SonarrCustomFormatInfo;
 
   instanceName: string;
   applicationUrl: string;
@@ -53,12 +108,19 @@ export interface SonarrDownloadPayload {
   series: SonarrSeries;
   episodes: SonarrEpisode[];
 
-  episodeFile: SonarrEpisodeFile;
+  episodeFile?: SonarrEpisodeFile;
+  episodeFiles?: SonarrEpisodeFile[];
+  deletedFiles?: SonarrEpisodeFile[];
+
+  release?: SonarrGrabbedRelease;
+  sourcePath?: string;
+  destinationPath?: string;
   isUpgrade?: boolean;
 
   downloadClient?: string;
   downloadClientType?: string;
   downloadId?: string;
+  customFormatInfo?: SonarrCustomFormatInfo;
 
   instanceName: string;
   applicationUrl: string;
@@ -67,7 +129,8 @@ export interface SonarrDownloadPayload {
 export interface SonarrRenamePayload {
   eventType: "Rename";
   series: SonarrSeries;
-  episodes: SonarrEpisode[];
+  episodes?: SonarrEpisode[];
+  renamedEpisodeFiles?: SonarrRenamedEpisodeFile[];
 
   instanceName: string;
   applicationUrl: string;
@@ -87,6 +150,7 @@ export interface SonarrHealthPayload {
   message: string;
   type: string;
   level: string;
+  wikiUrl?: string;
 
   instanceName: string;
   applicationUrl?: string;
@@ -95,15 +159,58 @@ export interface SonarrHealthPayload {
 export interface SonarrManualInteractionPayload {
   eventType: "ManualInteractionRequired";
   series: SonarrSeries;
+  episodes?: SonarrEpisode[];
 
   downloadStatus: string;
-  downloadStatusMessages: {
-    title: string;
-    messages: string[];
-  }[];
+  downloadStatusMessages: SonarrDownloadStatusMessage[];
+  downloadInfo?: SonarrDownloadInfo;
+
+  release?: SonarrGrabbedRelease;
+
+  downloadClient?: string;
+  downloadClientType?: string;
+  downloadId?: string;
+  customFormatInfo?: SonarrCustomFormatInfo;
 
   instanceName: string;
   applicationUrl: string;
+}
+
+export interface SonarrSeriesAddPayload {
+  eventType: "SeriesAdd";
+  series: SonarrSeries;
+
+  instanceName: string;
+  applicationUrl: string;
+}
+
+export interface SonarrSeriesDeletePayload {
+  eventType: "SeriesDelete";
+  series: SonarrSeries;
+  deletedFiles: boolean;
+
+  instanceName: string;
+  applicationUrl: string;
+}
+
+export interface SonarrEpisodeFileDeletePayload {
+  eventType: "EpisodeFileDelete";
+  series: SonarrSeries;
+  episodes: SonarrEpisode[];
+  episodeFile: SonarrEpisodeFile;
+  deleteReason: string;
+
+  instanceName: string;
+  applicationUrl: string;
+}
+
+export interface SonarrApplicationUpdatePayload {
+  eventType: "ApplicationUpdate";
+  message: string;
+  previousVersion: string;
+  newVersion: string;
+
+  instanceName: string;
 }
 
 /**
@@ -115,4 +222,8 @@ export type SonarrWebhookPayload =
   | SonarrRenamePayload
   | SonarrTestPayload
   | SonarrHealthPayload
-  | SonarrManualInteractionPayload;
+  | SonarrManualInteractionPayload
+  | SonarrSeriesAddPayload
+  | SonarrSeriesDeletePayload
+  | SonarrEpisodeFileDeletePayload
+  | SonarrApplicationUpdatePayload;
