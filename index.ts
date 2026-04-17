@@ -18,17 +18,29 @@ app.get("/", (req: express.Request, res: express.Response) => {
 });
 
 app.post("/webhook/send-message", async (req: express.Request, res: express.Response) => {
+    const auth = req.headers.authorization;
+    if (!auth || !auth.startsWith('Basic ')) {
+      return res.status(401).send("Unauthorized");
+    }
+  
+    const credentials = Buffer.from(auth.slice(6), "base64").toString("utf-8");
+    
+    const [username, password] = credentials.split(":");
+    if (username !== env.WEBHOOK_USER || password !== env.WEBHOOK_PASSWORD) {
+      return res.status(401).send("Unauthorized");
+    }
+  
     try {
       const payload = req.body as WebhookPayload;
       
       if (!payload) {
         return res.status(400).send("Bad Request");
       }
-
+  
       console.log("Received webhook payload:", payload);
-
+  
       await messageQueue.add("message-queue", payload);
-
+  
       res.status(200).json({ success: true });
     } catch (err) {
         console.error(err);

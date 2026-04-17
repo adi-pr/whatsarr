@@ -24,6 +24,8 @@ export const env = {
     ALLIDS: [...adminNumbers, ...groupIds],
     REDIS_HOST: process.env.REDIS_HOST || "127.0.0.1",
     REDIS_PORT: Number(process.env.REDIS_PORT || 6379),
+    WEBHOOK_USER: process.env.WEBHOOK_USER,
+    WEBHOOK_PASSWORD: process.env.WEBHOOK_PASSWORD,
 };
 
 export default env;
