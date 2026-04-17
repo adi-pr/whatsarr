@@ -8,14 +8,7 @@ The project currently provides:
 
 - An Express server with a webhook endpoint.
 - WhatsApp Web authentication via QR code and local session persistence.
-- Sonarr event routing with implemented handlers for:
-	- `Test`
-	- `Grab`
-	- `SeriesAdd`
-	- `SeriesDelete`
-	- `Health`
-	- `HealthRestored`
-	- `ManualInteractionRequired`
+- Sonarr event routing.
 
 ## How It Works
 
@@ -63,6 +56,8 @@ GROUP_ID=123456789@g.us
 ADMIN_NUMBERS=5921233456@c.us,5921234567@c.us
 PORT=3000
 WHATSAPP_SESSION_PATH=
+REDIS_HOST=
+REDIS_PORT=
 ```
 
 Notes:
