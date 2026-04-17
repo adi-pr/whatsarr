@@ -1,10 +1,11 @@
 import { Queue } from "bullmq";
 import { WebhookPayload } from "../../types";
+import env from "../../config/env";
 
 // TODO: replace with envs
 const connection = {
-  host: "127.0.0.1", 
-  port: 6379,
+  host: env.REDIS_HOST,
+  port: env.REDIS_PORT,
 }
 
 const messageQueue = new Queue<WebhookPayload>("message-queue", { connection });

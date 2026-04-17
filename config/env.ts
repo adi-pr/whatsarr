@@ -22,6 +22,8 @@ export const env = {
     WHATSAPP_SESSION_PATH: process.env.WHATSAPP_SESSION_PATH || "./wwebjs_cache",
     NODE_ENV: process.env.NODE_ENV || "development",
     ALLIDS: [...adminNumbers, ...groupIds],
+    REDIS_HOST: process.env.REDIS_HOST || "127.0.0.1",
+    REDIS_PORT: Number(process.env.REDIS_PORT || 6379),
 };
 
 export default env;

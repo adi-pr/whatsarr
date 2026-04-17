@@ -1,6 +1,7 @@
 import { Worker } from "bullmq";
 import { WebhookPayload } from "../../types";
 import { handleEvent } from "../handlers/handler";
+import env from "../../config/env";
 
 export default function startWorker() {
   const worker = new Worker<WebhookPayload>("message-queue", async (job) => {
@@ -11,8 +12,8 @@ export default function startWorker() {
   },
   {
     connection: {
-      host: "127.0.0.1",
-      port: 6379,
+      host: env.REDIS_HOST,
+      port: env.REDIS_PORT,
     },
     concurrency: 5,
   });
