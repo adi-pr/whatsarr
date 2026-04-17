@@ -5,7 +5,7 @@ import onTest from "./onTest";
 import onHealth from "./onHealth";
 import onManualInteractionReq from "./onManualInteractionReq";
 
-export const handlers = {
+const sonarrHandlers = {
     "Test": onTest,
     "Grab": onGrab,
     "SeriesAdd": onSeriesAdd,
@@ -14,3 +14,5 @@ export const handlers = {
     "HealthRestored": onHealth,
     "ManualInteractionRequired": onManualInteractionReq
 };
+
+export default sonarrHandlers;
