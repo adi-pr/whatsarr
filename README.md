@@ -49,16 +49,7 @@ npm install
 
 > To find your `GROUP_ID` and `ADMIN_NUMBERS` values, use the [setup helper script](setup/README.md).
 
-Copy `example.env` and configure values:
-
-```env
-GROUP_ID=123456789@g.us
-ADMIN_NUMBERS=5921233456@c.us,5921234567@c.us
-PORT=3000
-WHATSAPP_SESSION_PATH=
-REDIS_HOST=
-REDIS_PORT=
-```
+Copy `example.env` and configure values
 
 Notes:
 
